@@ -1,0 +1,7 @@
+.panel {
+  cursor: pointer; }
+  .panel .panel-heading {
+    font-weight: bold; }
+
+.proposed-name-container .close:hover {
+  color: red; }

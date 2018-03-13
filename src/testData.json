@@ -1,0 +1,29 @@
+{
+    "contests" : [
+        {
+            "id" : 1,
+            "categoryName" : "Business/Company",
+            "contestName" : "Cognitive"
+            
+        },
+        {
+            "id" : 2,
+            "categoryName" : "Magazine/NewsLetter",
+            "contestName" : "Education people"
+            
+        }, 
+        {
+            "id" : 3,
+            "categoryName" : "Software Component",
+            "contestName" : "Big Data Analytic"
+            
+        }, 
+        {
+            "id" : 4,
+            "categoryName" : "Websit",
+            "contestName" : "Free Programming Books"
+            
+        }
+
+    ]
+}
