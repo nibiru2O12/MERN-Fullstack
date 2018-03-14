@@ -34,29 +34,28 @@ router.get('/contest/:id/names',(req,res)=>{
     const sql = `select * from tblnames where contestId=${id}`;
     conn.query(sql,(err,result)=>{
         if(err) throw err;
-        res.send({
-            names : result 
-        });
+        res.send(result);
     });
 
 });
 
-router.post('/contest/:contestID/:name',(req)=>{
+router.post('/contest/:contestID/:name',(req,res)=>{
     const {contestID,name} = req.params;
 
     const sql = 'insert into tblnames (name,contestId) values(?,?)';
-    conn.query(sql,[name,contestID],(err)=>{
-        if(err) throw err;
-        return true;
+   
+    conn.query(sql,[name,contestID],(err,result)=>{
+        if(err) throw (err);
+        res.send(result);
     });
 });
 
-router.delete('/name/:nameID',(req)=>{
+router.delete('/name/:nameID',(req,res)=>{
     const {nameID} = req.params;
     const sql ='delete from tblnames where id=?';
-    conn.query(sql,[nameID],(err)=>{
+    conn.query(sql,[nameID],(err,result)=>{
         if(err) throw err;
-        return true;
+        res.send(result);
     });
 });
 

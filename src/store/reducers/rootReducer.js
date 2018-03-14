@@ -2,15 +2,14 @@ import {combineReducers} from 'redux';
 import * as actions from '../actions/actionCreator';
 
 function names(state=[],action){
-    console.log('asdasd',action.type);
     switch(action.type){
         case actions.ADD_NAME:
-            const next = [...state].concat(name);
-            return next;
-            break;
+            {
+                let next = [...state].concat(action.name);
+                return next;
+            }
        case actions.GET_NAMES :
-            console.log('names',action.names)
-            return action.names
+            return action.names;
         default:
             return state;
     }

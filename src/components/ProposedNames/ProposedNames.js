@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import axios from 'axios';
 import {array} from 'prop-types';
-import {connect} from 'react-redux';
 
 import ProposedName from './ProposedName/ProposedName';
 

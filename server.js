@@ -1,3 +1,5 @@
+require('babel-core/register');
+require('babel-polyfill');
 import express from 'express';
 import sassMiddleWare from 'node-sass-middleware';
 import path from 'path';

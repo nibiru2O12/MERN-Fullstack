@@ -1,31 +1,34 @@
 import Axios from 'axios';
+import { resolve } from 'path';
 
 export const ADD_NAME = 'ADD_NAME';
 export const GET_NAMES = 'GET_NAMES';
 export const SELECT_CONTEST = 'SELECT_CONTEST';
 export const CLEAR_SELECTED_CONTEST = 'CLEAR_SELECTED_CONTEST';
 
-export function addName(name){
-    console.log(name)
-    return {
-        type : ADD_NAME,
-        name
+export function addNewName(contestID,names){
+    return async (dispatch) => {
+        try{
+            await Axios.post(`/api/contest/${contestID}/${names}`);
+            dispatch(getNames(contestID) );
+        }catch (err){
+            console.log(err);
+        }
     };
 }
 
 function returnAllNames(names){
-    console.log('returning names')
     return {
         type : GET_NAMES,
         names
-    }
+    };
 }
 
 export function getNames(contestID){
     return (dispatch) => {
         fetchNames(contestID)
-            .then(names => dispatch(returnAllNames(names)))
-   }
+            .then(names => dispatch(returnAllNames(names)));
+   };
 }
 
 function setSelectedContest(contest){
@@ -45,10 +48,9 @@ export function selectContest(contestID){
 }
 
 export function clearSelectedContest(){
-    console.log('clear')
     return {
         type : CLEAR_SELECTED_CONTEST
-    }
+    };
 }
 
 const fetchContest = (contestID) => 
