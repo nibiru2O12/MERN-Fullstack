@@ -27,8 +27,10 @@ class App extends Component {
 
     handleOnSelect = (contestID) => {
         window.history.pushState({contestID : contestID},'',`/contest/${contestID}`);
-        // this.fetchContest(contestID);
-        this.props.selectContest(contestID);
+        this.fetchContest(contestID);
+        console.log('done fetching')
+        
+        // this.props.selectContest(contestID);
     }
 
     insertPropsedName = (contestID,name) => 
@@ -37,25 +39,27 @@ class App extends Component {
             .catch(err => console.log(err));
     
 
-    // fetchContest = (contestID) => {
-    //     Axios.get(`/api/contest/${contestID}`)
-    //     .then(({data}) => {
-    //         return data.contest;
-    //     })
-    //     .then(contest => {
-    //         this.fetchNames(contestID)
-    //         .then((res) => this.setState({
-    //             names : res.names,
-    //             contest : contest
-    //         }));
-    //     });s
-    // }
+    fetchContest = (contestID) => {
+        Axios.get(`/api/contest/${contestID}`)
+        .then(({data}) => {
+            return data.contest;
+        })
+        .then(contest => {
+            this.fetchNames(contestID)
+            .then((res) => {
+                this.setState({
+                    names : res.names,
+                    contest : contest
+                });
+            });
+        });
+    }
 
-    // fetchNames = (contestID) => 
-    //     Axios.get(`/api/contest/${contestID}/names`)
-    //     .then(({data}) => {
-    //         return data;
-    //     });
+    fetchNames = (contestID) => 
+        Axios.get(`/api/contest/${contestID}/names`)
+        .then(({data}) => {
+            return data;
+        });
 
     componentDidMount(){
         window.onpopstate = () => {
@@ -76,7 +80,7 @@ class App extends Component {
     }
     
     render() {
-        console.log('asdss');
+
         const {contests,contest,names} = this.state;
         const contestList =(
             contest ? <ContestPreview contest={contest} onClick = {this.handleOnSelect} /> : 
@@ -87,8 +91,8 @@ class App extends Component {
             <div>
                 <Header header={this.pageHeader()} />
                 {contestList}
-                {contest && names && <ProposedNames contestID={contest.id} />}
-                {contest && <ProposeName onSubmit = {this.handleAddName} />}
+                {contest && names && <ProposedNames names={names} contestID={contest.id} />}
+                {contest && <ProposeName  onSubmit = {this.handleAddName} />}
             </div>
         );
     }

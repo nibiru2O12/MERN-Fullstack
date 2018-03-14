@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2018-03-14 09:46:59
+Date: 2018-03-14 10:28:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,12 +24,13 @@ CREATE TABLE `tblcontests` (
   `categoryName` varchar(255) DEFAULT NULL,
   `contestName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tblcontests
 -- ----------------------------
-INSERT INTO `tblcontests` VALUES ('1', 'asd', 'asd');
+INSERT INTO `tblcontests` VALUES ('1', 'Technology', 'ContestName');
+INSERT INTO `tblcontests` VALUES ('2', 'Business', 'ContestName');
 
 -- ----------------------------
 -- Table structure for `tblnames`
@@ -40,9 +41,12 @@ CREATE TABLE `tblnames` (
   `name` varchar(255) DEFAULT NULL,
   `contestId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tblnames
 -- ----------------------------
-INSERT INTO `tblnames` VALUES ('1', 'asdasd', '1');
+INSERT INTO `tblnames` VALUES ('1', 'Sample Proposed', '1');
+INSERT INTO `tblnames` VALUES ('2', 'Sample', '2');
+INSERT INTO `tblnames` VALUES ('3', 'Sample', '2');
+INSERT INTO `tblnames` VALUES ('4', 'Sample', '2');

@@ -10,42 +10,12 @@ class ProposedNames extends Component {
         names : array
     };
 
-    state = {
-        contestID : 0,
-        names : []
-    }
-
-    handleDelete = (nameID) =>{
-        axios.delete(`/api/name/${nameID}`)
-                .then(
-                    this.fetchNames(this.props.contestID)
-                        .catch(err => console.log(err))
-                        .then(({names})=> this.setState({names}))
-                )
-                .catch(err => console.log(err));
-    }
-
-    fetchNames = (contestID) => 
-        axios.get(`/api/contest/${contestID}/names`)
-        .then(({data}) => {
-            return data;
-        });
-
-    componentDidMount(){
-        this.fetchNames(this.props.contestID)
-                        .catch(err => console.log(err))
-                        .then(({names})=> this.setState({names,contestID:this.props.contestID}));
-    }
-
     render() {
 
-        console.log(this.state);
-        const {names} = this.state;
+        const {names} = this.props;
 
-        const nameLists = names.map(name => {
-            return (
-                <ProposedName name={name} key={name.id} onDelete={()=>this.handleDelete(name.id)} />
-            );
+        const nameLists = names && names.map(name => {
+            return (<ProposedName name={name} key={name.id} onDelete={()=>this.handleDelete(name.id)} />);
         });
     
         return (

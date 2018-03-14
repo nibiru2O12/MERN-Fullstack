@@ -14,7 +14,7 @@ store.dispatch(actions.addName('hello world'));
 console.log(store.getState());
 const rootDoc  = document.getElementById('root');
 
-ReactDom.render(
+ReactDom.hydrate(
     <Provider store={store}>
         <App intialData={window.initialData} />
     </Provider>
