@@ -27,39 +27,11 @@ class App extends Component {
 
     handleOnSelect = (contestID) => {
         window.history.pushState({contestID : contestID},'',`/contest/${contestID}`);
-        this.fetchContest(contestID);
-        console.log('done fetching')
+        // this.fetchContest(contestID);
+        // console.log('done fetching')
         
-        // this.props.selectContest(contestID);
+        this.props.selectContest(contestID);
     }
-
-    insertPropsedName = (contestID,name) => 
-        Axios.post(`/api/contest/${contestID}/${name}`)
-            .then((res) => res)
-            .catch(err => console.log(err));
-    
-
-    fetchContest = (contestID) => {
-        Axios.get(`/api/contest/${contestID}`)
-        .then(({data}) => {
-            return data.contest;
-        })
-        .then(contest => {
-            this.fetchNames(contestID)
-            .then((res) => {
-                this.setState({
-                    names : res.names,
-                    contest : contest
-                });
-            });
-        });
-    }
-
-    fetchNames = (contestID) => 
-        Axios.get(`/api/contest/${contestID}/names`)
-        .then(({data}) => {
-            return data;
-        });
 
     componentDidMount(){
         window.onpopstate = () => {
