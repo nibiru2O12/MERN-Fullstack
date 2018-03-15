@@ -21,6 +21,8 @@ function contest(state= null,action){
             return action.contest;
         case actions.CLEAR_SELECTED_CONTEST:
             return null;
+        case  actions.IS_LOADING:
+            return {...state,isLoading:action.isLoading};
         default:
             return state;
     }

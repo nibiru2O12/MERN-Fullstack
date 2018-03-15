@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {object,array} from 'prop-types';
+import {object,array,func} from 'prop-types';
 
 import * as actions from '../store/actions/actionCreator';
 import Header from './Header';
@@ -8,9 +8,19 @@ import ContestList from './ContestList';
 import ContestPreview from './ContestPreview';
 import ProposedNames from './ProposedNames/ProposedNames';
 import ProposeName from './ProposedNames/ProposeName/ProposeName';
+import Loading from '../UI/Modal/Loading/Loading';
 
 class App extends Component {
 
+    static propTypes = {
+        intialData : object,
+        names : array,
+        insertNewName : func,
+        selectContest : func,
+        clearSelectedContest : func,
+        getNames  : func
+    };
+    
     state = this.props.intialData
 
     handleAddName = (name) => {
@@ -21,7 +31,7 @@ class App extends Component {
     }
 
     handleRemoveName = (nameID) => {
-        alert('removed');
+     
     }
 
     handleOnSelect = (contestID) => {
@@ -36,7 +46,7 @@ class App extends Component {
 
     componentDidMount(){
         window.onpopstate = () => {
-        this.props.clearSelectedContest()
+        this.props.clearSelectedContest();
         const {state} = event;
             if(!state){
         this.setState({contest : null});
@@ -55,7 +65,6 @@ class App extends Component {
 
     render() {
 
-
         const {contest,names} = this.props;
         const {contests} = this.state;
 
@@ -64,8 +73,11 @@ class App extends Component {
             <ContestList contests={contests} onSelect = {this.handleOnSelect} />
         );
 
+        const isLoading = contest ? <Loading show={contest.isLoading}/>  : null ;
+
         return (
             <div>
+                { isLoading }
                 <Header header={this.pageHeader()} />
                 {contestList}
                 {contest && names && <ProposedNames names={names} contestID={contest.id} />}
@@ -74,11 +86,6 @@ class App extends Component {
         );
     }
 }
-
-App.propTypes = {
-    intialData : object,
-    names : array
-};
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -40,14 +40,14 @@ router.get('/contest/:id/names',(req,res)=>{
 });
 
 router.post('/contest/:contestID/:name',(req,res)=>{
-    const {contestID,name} = req.params;
-
-    const sql = 'insert into tblnames (name,contestId) values(?,?)';
-   
-    conn.query(sql,[name,contestID],(err,result)=>{
-        if(err) throw (err);
-        res.send(result);
-    });
+    setTimeout(()=>{
+        const {contestID,name} = req.params;
+        const sql = 'insert into tblnames (name,contestId) values(?,?)';
+        conn.query(sql,[name,contestID],(err,result)=>{
+            if(err) throw (err);
+            res.send(result);
+        });
+    },1000);
 });
 
 router.delete('/name/:nameID',(req,res)=>{

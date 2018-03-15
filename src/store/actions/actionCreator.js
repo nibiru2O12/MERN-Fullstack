@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import { resolve } from 'path';
 
 export const ADD_NAME = 'ADD_NAME';
+export const IS_LOADING = 'IS_LOADING';
 export const GET_NAMES = 'GET_NAMES';
 export const SELECT_CONTEST = 'SELECT_CONTEST';
 export const CLEAR_SELECTED_CONTEST = 'CLEAR_SELECTED_CONTEST';
@@ -9,11 +9,24 @@ export const CLEAR_SELECTED_CONTEST = 'CLEAR_SELECTED_CONTEST';
 export function addNewName(contestID,names){
     return async (dispatch) => {
         try{
+
+            dispatch(isLoading(true));
+
             await Axios.post(`/api/contest/${contestID}/${names}`);
+
+            dispatch(isLoading(false));
             dispatch(getNames(contestID) );
+
         }catch (err){
-            console.log(err);
+            dispatch(isLoading(false));
         }
+    };
+}
+
+function isLoading(value){
+    return {
+        type : IS_LOADING,
+        isLoading : value
     };
 }
 
