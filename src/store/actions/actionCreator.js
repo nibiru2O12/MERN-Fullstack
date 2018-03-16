@@ -6,6 +6,14 @@ export const GET_NAMES = 'GET_NAMES';
 export const SELECT_CONTEST = 'SELECT_CONTEST';
 export const CLEAR_SELECTED_CONTEST = 'CLEAR_SELECTED_CONTEST';
 
+
+function isLoading(value){
+    return {
+        type : IS_LOADING,
+        isLoading : value
+    };
+}
+
 export function addNewName(contestID,names){
     return async (dispatch) => {
         try{
@@ -23,12 +31,24 @@ export function addNewName(contestID,names){
     };
 }
 
-function isLoading(value){
-    return {
-        type : IS_LOADING,
-        isLoading : value
+export function deleteName(contestID,nameID){
+    return dispatch => {
+
+        dispatch(isLoading(true));
+
+        Axios.delete(`/api/name/${nameID}`)
+            .then(res => {
+                dispatch(getNames(contestID));
+                dispatch(isLoading(false));
+                console.log(res);
+            })
+            .catch(err => {
+                dispatch(isLoading(false));
+                console.log(err);
+            });
     };
-}
+};
+
 
 function returnAllNames(names){
     return {

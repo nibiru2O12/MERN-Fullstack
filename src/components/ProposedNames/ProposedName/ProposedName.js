@@ -1,5 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {object,func} from 'prop-types';
+
+import * as actions from '../../../store/actions/actionCreator';
 
 const ProposedName = (props) => {
 
@@ -7,7 +10,7 @@ const ProposedName = (props) => {
 
     return (
         <li className="list-group-item proposed-name-container">
-            {name.name} <button className='close' onClick={()=>props.onDelete()}>x</button>
+            {name.name} <button className='close' onClick={()=>props.deleteName(name.contestId,name.id)}>x</button>
         </li>
     );
 
@@ -15,7 +18,14 @@ const ProposedName = (props) => {
 
 ProposedName.propTypes = {
     name : object,
-    onDelete : func
+    onDelete : func,
+    deleteName : func
 };
 
-export default ProposedName;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteName  : (contestID,nameID) => dispatch(actions.deleteName(contestID,nameID))
+    };
+};
+
+export default connect(null,mapDispatchToProps)(ProposedName);
